@@ -4,9 +4,12 @@ package com.spring.crudbasic.Entity; //entity packages
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import io.micrometer.common.lang.NonNull;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,4 +43,8 @@ public class User {
     @Column(name = "Delete")
     private Boolean delete=false;
     
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "info")
+    private Info info;
+
 }

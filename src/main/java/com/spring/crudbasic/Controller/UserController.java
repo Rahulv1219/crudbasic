@@ -1,9 +1,10 @@
 package com.spring.crudbasic.Controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.crudbasic.Entity.User;
+import com.spring.crudbasic.Entity.dao.ReqUser;
+import com.spring.crudbasic.Entity.dao.ResUser;
 import com.spring.crudbasic.Service.UserService;
 
 import jakarta.websocket.server.PathParam;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
-
-
 
 
 @RestController
@@ -30,28 +29,37 @@ public class UserController {
     UserService userService;
     
     @PostMapping(path="/addUser",consumes= {"application/json"},produces = {"application/json"})
-    public User addUser(@RequestBody User user) {
-        if(userService.findById(user.getId()).isEmpty()){
-            return userService.addUser(user);
+    public ResponseEntity<User> addUser(@RequestBody ReqUser user) {
+        if(userService.findById(user.getId()).getMessage().equals("user not found")){
+            return ResponseEntity.ok().body(userService.addUser(user));
         }
-        return new User();
+        return ResponseEntity.status(HttpStatus.OK).body(new User());
     }
 
     @GetMapping("/getUser")
-    public Optional<User> getUser(@PathParam(value = "id") Long id) {
-        return userService.findById(id);
+    public ResponseEntity<ResUser> getUser(@PathParam(value = "id") Long id) {
+        return ResponseEntity.ok().body(userService.findById(id));
     }
 
     @GetMapping("/getUserByName/{name}")
-    public List<User> getUserByName(@PathVariable String name) {
-        return userService.findByName(name);
+    public ResponseEntity<List<ResUser>> getUserByName(@PathVariable String name) {
+        return ResponseEntity.ok().body(userService.findByName(name));
     }
 
     @GetMapping("/getAllUser")
-    public List<User> getAllUser() {
-        return userService.findAll();
+    public ResponseEntity<List<ResUser>> getAllUser() {
+        return ResponseEntity.ok().body(userService.findAll());
     }
     
-    
-    
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<ResUser> deletUser(@PathVariable Long id) {
+        System.out.println(id);
+        return ResponseEntity.ok().body(userService.deleteUser(id));
+    }
+
+    @DeleteMapping("/softDeleteUser/{id}")
+    public ResponseEntity<ResUser> softDeletUser(@PathVariable Long id) {
+        System.out.println(id);
+        return ResponseEntity.ok().body(userService.softDeleteUser(id));
+    }
 }
