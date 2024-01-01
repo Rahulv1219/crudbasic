@@ -43,8 +43,9 @@ public class User {
     @Column(name = "Delete")
     private Boolean delete=false;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "info")
+    @OneToOne(targetEntity = Info.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "info_id",referencedColumnName = "id")
     private Info info;
+
 
 }

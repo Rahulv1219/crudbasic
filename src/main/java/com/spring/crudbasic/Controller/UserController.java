@@ -19,6 +19,8 @@ import com.spring.crudbasic.Service.UserService;
 import jakarta.websocket.server.PathParam;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -59,7 +61,16 @@ public class UserController {
 
     @DeleteMapping("/softDeleteUser/{id}")
     public ResponseEntity<ResUser> softDeletUser(@PathVariable Long id) {
-        System.out.println(id);
         return ResponseEntity.ok().body(userService.softDeleteUser(id));
+    }
+    
+    @PutMapping("/updateUserName/{id}")
+    public ResponseEntity<ResUser> updateUserName(@PathVariable Long id,@RequestBody ReqUser reqUser) {
+        return ResponseEntity.ok().body(userService.updateUserName(id,reqUser));
+    }
+
+    @PutMapping("/updateUserPlace/{id}")
+    public ResponseEntity<ResUser> updateUserPlace(@PathVariable Long id,@RequestBody ReqUser reqUser) {
+        return ResponseEntity.ok().body(userService.updateUserPlace(id,reqUser));
     }
 }

@@ -1,5 +1,8 @@
 package com.spring.crudbasic.Entity;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +23,8 @@ import lombok.ToString;
 public class Info {
 
     @Id
-    @Column(name = "ID", unique = true, nullable = false, precision = 20)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID", unique=true, nullable=false, precision=20)
     private Long id;
 
     @Column

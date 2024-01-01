@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.spring.crudbasic.Entity.Info;
 import com.spring.crudbasic.Entity.User;
 import com.spring.crudbasic.Entity.dao.ReqUser;
 import com.spring.crudbasic.Entity.dao.ResUser;
@@ -40,7 +41,20 @@ public class UserService {
     }
 
     public User addUser(ReqUser reqUser){
-        return userRepository.save(reqUser.prepareUser());
+        
+        User user = new User();
+        Info info = new Info();
+
+        user.setId(reqUser.getId());
+        user.setName(reqUser.getName());
+        user.setPassword(reqUser.getPassword());
+        user.setInfo(info);
+
+        info.setId(reqUser.getId());
+        info.setPlace(reqUser.getPlace());
+        info.setUser(user);
+        
+        return userRepository.save(user);
     }
 
     public List<ResUser> findByName(String name){
@@ -70,6 +84,34 @@ public class UserService {
             user.setDelete(true);
             userRepository.save(user);
             return resUser;
+        }
+		return  new ResUser("user not found");
+    }
+
+    public ResUser updateUserName(Long id,ReqUser reqUser){
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            if(reqUser.getName().length()!=0){
+                user.setName(reqUser.getName());
+                return new ResUser(userRepository.save(user),"Update Sucessfully");
+            }
+            new ResUser("user name not empty");
+        }
+		return  new ResUser("user not found");
+    }
+
+        public ResUser updateUserPlace(Long id,ReqUser reqUser){
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            if(reqUser.getPlace().length()!=0){
+                Info info = user.getInfo();
+                info.setPlace(reqUser.getPlace());
+                user.setInfo(info);
+                return new ResUser(userRepository.save(user),"Update Sucessfully");
+            }
+            new ResUser("user place not empty");
         }
 		return  new ResUser("user not found");
     }
