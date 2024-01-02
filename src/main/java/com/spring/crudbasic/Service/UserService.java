@@ -52,7 +52,6 @@ public class UserService {
 
         info.setId(reqUser.getId());
         info.setPlace(reqUser.getPlace());
-        info.setUser(user);
         
         return userRepository.save(user);
     }

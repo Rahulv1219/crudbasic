@@ -1,6 +1,8 @@
 package com.spring.crudbasic.Entity; //entity packages
 
 
+import java.util.List;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import io.micrometer.common.lang.NonNull;
@@ -9,6 +11,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -47,5 +50,8 @@ public class User {
     @JoinColumn(name = "info_id",referencedColumnName = "id")
     private Info info;
 
+    @OneToMany(targetEntity = Post.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "Post_ID",referencedColumnName = "id")
+    private List<Post> post;
 
 }
