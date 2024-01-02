@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -51,7 +52,7 @@ public class User {
     private Info info;
 
     @OneToMany(targetEntity = Post.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "Post_ID",referencedColumnName = "id")
+    @JoinColumn(name = "Post_ID",referencedColumnName = "ID")
     private List<Post> post;
 
 }

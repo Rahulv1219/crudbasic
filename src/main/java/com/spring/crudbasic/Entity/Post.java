@@ -27,10 +27,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="Post_ID", unique=true, nullable=false, precision=20)
     private Long post_id;
-
-    @Id
-    @Column(name="id", unique=true, nullable=false, precision=20)
-    private Long id;
+    
 
     @NonNull
     @Column(name="post string")

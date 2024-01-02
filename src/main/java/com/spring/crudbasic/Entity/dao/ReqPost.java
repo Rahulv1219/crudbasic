@@ -16,5 +16,6 @@ import lombok.ToString;
 public class ReqPost {
 
     public Long id;
+    public Long post_id;
     public String postString;
 }

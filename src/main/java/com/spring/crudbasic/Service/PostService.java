@@ -1,6 +1,7 @@
 package com.spring.crudbasic.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,11 +32,16 @@ public class PostService {
         ResPost resPost = new ResPost();
 
         Post post = new Post();
-        post.setId(reqPost.getId());
+        post.setPost_id(reqPost.getPost_id());
         post.setPostString(reqPost.getPostString());
         resPost.setPost(postRepository.save(post));
 
         resPost.setId(reqPost.getId());
         return resPost;
     }
+
+    public Optional<Post> fetchPostById(Long id){
+        return postRepository.findById(id);
+    }
+
 }
