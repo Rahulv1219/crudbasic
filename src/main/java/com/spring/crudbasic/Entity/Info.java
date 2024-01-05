@@ -24,10 +24,11 @@ public class Info {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id", unique=true, nullable=false, precision=20)
+    @Column(name="Info_Id", unique=true, nullable=false, precision=20)
     private Long id;
 
     @Column
     private String Place;
+
 
 }

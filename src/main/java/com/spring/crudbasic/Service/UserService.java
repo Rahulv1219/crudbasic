@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.spring.crudbasic.Entity.Info;
@@ -17,7 +16,6 @@ import com.spring.crudbasic.Repository.UserRepository;
 
 
 @Service
-@Component
 public class UserService {
     
     @Autowired  
@@ -50,6 +48,7 @@ public class UserService {
         user.setPassword(reqUser.getPassword());
         user.setInfo(info);
 
+
         info.setId(reqUser.getId());
         info.setPlace(reqUser.getPlace());
         
@@ -60,6 +59,7 @@ public class UserService {
         List<ResUser> resUser= new ArrayList<>();
         for(User user:userRepository.findByName(name)){
             resUser.add(new ResUser(user));
+                
         }
         return resUser;
     }

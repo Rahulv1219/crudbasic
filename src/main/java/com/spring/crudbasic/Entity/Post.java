@@ -28,7 +28,10 @@ public class Post {
     @Column(name="Post_ID", unique=true, nullable=false, precision=20)
     private Long post_id;
     
-
+    @NonNull
+    @Column(name="Author")
+    private Long id;
+    
     @NonNull
     @Column(name="post string")
     private String postString;
